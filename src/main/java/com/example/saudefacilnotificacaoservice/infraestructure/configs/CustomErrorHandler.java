@@ -1,4 +1,4 @@
-package com.example.saudefacilnotificacaoservice.infraestructure.config;
+package com.example.saudefacilnotificacaoservice.infraestructure.configs;
 
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.context.annotation.Profile;
