@@ -29,7 +29,7 @@ public class EnviarNotificacaoConsultaUseCase {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String dataFormatada = formatter.format(data);
 
-        return String.format(mensagem, medico, dataFormatada);
+        return mensagem.replace("MEDICO", medico).replace("DATA", dataFormatada);
     }
 
 }
