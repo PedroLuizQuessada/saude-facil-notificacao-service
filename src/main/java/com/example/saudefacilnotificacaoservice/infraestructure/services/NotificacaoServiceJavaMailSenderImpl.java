@@ -6,17 +6,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 @Service
 @Profile("javamailsender")
 public class NotificacaoServiceJavaMailSenderImpl implements NotificacaoDataSource {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Value("${email.remetente}")
     private String remetente;
+
+    public NotificacaoServiceJavaMailSenderImpl(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     @Override
     public void enviarNotificacao(String destinatario, String assunto, String mensagem) {
