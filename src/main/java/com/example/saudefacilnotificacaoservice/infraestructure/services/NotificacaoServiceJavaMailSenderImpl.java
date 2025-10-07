@@ -15,7 +15,7 @@ public class NotificacaoServiceJavaMailSenderImpl implements NotificacaoDataSour
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @Value("${notificacao.consulta.mensagem}")
+    @Value("${email.remetente}")
     private String remetente;
 
     @Override

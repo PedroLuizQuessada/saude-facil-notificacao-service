@@ -8,6 +8,7 @@ RUN mvn dependency:go-offline -B
 
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
+ENV MAVEN_OPTS="-Dfile.encoding=UTF-8"
 COPY --from=dependencies /root/.m2 /root/.m2
 COPY pom.xml .
 COPY src ./src
