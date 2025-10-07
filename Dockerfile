@@ -15,8 +15,6 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre AS execution
-WORKDIR /home/fiap
-RUN adduser fiap --disabled-password
-USER fiap
+WORKDIR /home/root
 COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
