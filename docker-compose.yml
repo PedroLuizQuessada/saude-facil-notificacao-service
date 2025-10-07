@@ -1,0 +1,13 @@
+services:
+  notificacao_app:
+    build:
+      context: .
+      target: execution
+    container_name: notificacao_app
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: 123456
