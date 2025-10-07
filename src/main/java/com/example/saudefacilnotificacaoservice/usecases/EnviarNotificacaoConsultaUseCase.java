@@ -15,6 +15,12 @@ public class EnviarNotificacaoConsultaUseCase {
     @Value("${notificacao.consulta.mensagem}")
     private String mensagem;
 
+    @Value("${notificacao.consulta.mensagem.replace.medico}")
+    private String mensagemReplaceMedico;
+
+    @Value("${notificacao.consulta.mensagem.replace.data}")
+    private String mensagemReplaceData;
+
     private final NotificacaoGateway notificacaoGateway;
 
     public EnviarNotificacaoConsultaUseCase(NotificacaoGateway notificacaoGateway) {
@@ -29,7 +35,7 @@ public class EnviarNotificacaoConsultaUseCase {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String dataFormatada = formatter.format(data);
 
-        return mensagem.replace("MEDICO", medico).replace("DATA", dataFormatada);
+        return mensagem.replace(mensagemReplaceMedico, medico).replace(mensagemReplaceData, dataFormatada);
     }
 
 }
