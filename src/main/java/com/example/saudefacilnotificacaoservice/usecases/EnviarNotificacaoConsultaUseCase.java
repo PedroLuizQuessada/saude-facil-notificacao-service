@@ -2,24 +2,16 @@ package com.example.saudefacilnotificacaoservice.usecases;
 
 import com.example.saudefacilnotificacaoservice.gateways.NotificacaoGateway;
 import dtos.NotificacaoConsultaDto;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class EnviarNotificacaoConsultaUseCase {
 
-    @Value("${notificacao.consulta.assunto}")
-    private String assunto;
-
-    @Value("${notificacao.consulta.mensagem}")
-    private String mensagem;
-
-    @Value("${notificacao.consulta.mensagem.replace.medico}")
-    private String mensagemReplaceMedico;
-
-    @Value("${notificacao.consulta.mensagem.replace.data}")
-    private String mensagemReplaceData;
+    private static final String ASSUNTO = "Nova consulta agendada";
+    private static final String MENSAGEM = "Uma nova consulta foi agendada com o doutor MEDICO para a data DATA";
+    private static final String REPLACE_MEDICO = "MEDICO";
+    private static final String REPLACE_DATA = "DATA";
 
     private final NotificacaoGateway notificacaoGateway;
 
@@ -28,14 +20,14 @@ public class EnviarNotificacaoConsultaUseCase {
     }
 
     public void execute(NotificacaoConsultaDto notificacaoConsultaDto) {
-        notificacaoGateway.enviarNotificacao(notificacaoConsultaDto.email(), assunto, montarMensagem(notificacaoConsultaDto.data(), notificacaoConsultaDto.nomeMedico()));
+        notificacaoGateway.enviarNotificacao(notificacaoConsultaDto.email(), ASSUNTO, montarMensagem(notificacaoConsultaDto.data(), notificacaoConsultaDto.nomeMedico()));
     }
 
     private String montarMensagem(LocalDateTime data, String medico) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String dataFormatada = formatter.format(data);
 
-        return mensagem.replace(mensagemReplaceMedico, medico).replace(mensagemReplaceData, dataFormatada);
+        return MENSAGEM.replace(REPLACE_MEDICO, medico).replace(REPLACE_DATA, dataFormatada);
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.saudefacilnotificacaoservice.controllers.NotificacaoControlle
 import com.example.saudefacilnotificacaoservice.datasources.NotificacaoDataSource;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import dtos.NotificacaoConsultaDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -24,6 +25,7 @@ public class NotificacoesConsultaConsumer {
     @RabbitListener(queues = "${rabbitmq.fila-notificacoes-consultas}")
     public void consumir(String mensagem) {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         NotificacaoConsultaDto notificacaoConsultaDto;
         try {
             notificacaoConsultaDto = objectMapper.readValue(mensagem, NotificacaoConsultaDto.class);
